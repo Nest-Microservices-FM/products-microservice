@@ -14,7 +14,7 @@ export class ProductsController {
     return this.productsService.create(createProductDto);
   }
 
-  @MessagePattern({ cmd: 'find_all_products'})
+  @MessagePattern('find_all_products')
   findAll(@Payload() paginationDto: PaginationDto) {
     return this.productsService.findAll(paginationDto);
   }
@@ -32,5 +32,10 @@ export class ProductsController {
   @MessagePattern({ cmd: 'delete_product'})
   remove(@Payload('id', ParseIntPipe) id: number){
     return this.productsService.remove(id);
+  }
+
+  @MessagePattern({cmd: 'validate_products'})
+  validateProduct (@Payload() ids: number[]){
+    return this.productsService.validateProducts(ids)
   }
 }
